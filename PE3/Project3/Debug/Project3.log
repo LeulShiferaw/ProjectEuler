@@ -1,0 +1,4 @@
+﻿  main.cpp
+C:\Users\Leul Shiferaw\Desktop\ProjectEuler\Project3\Project3\main.cpp(13,11): warning C4244: 'initializing': conversion from 'double' to 'll', possible loss of data
+C:\Users\Leul Shiferaw\Desktop\ProjectEuler\Project3\Project3\main.cpp(30,14): warning C4244: 'return': conversion from 'll' to 'long', possible loss of data
+  Project3.vcxproj -> C:\Users\Leul Shiferaw\Desktop\ProjectEuler\Project3\Debug\Project3.exe
