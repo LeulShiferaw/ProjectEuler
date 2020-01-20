@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\abiyl\Desktop\ProjectEuler\PE8\PE8\main.cpp(24,20): warning C4018: '<': signed/unsigned mismatch
+  PE8.vcxproj -> C:\Users\abiyl\Desktop\ProjectEuler\PE8\Debug\PE8.exe

@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\abiyl\Desktop\ProjectEuler\PE7\PE7\main.cpp(10,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  PE7.vcxproj -> C:\Users\abiyl\Desktop\ProjectEuler\PE7\Debug\PE7.exe
