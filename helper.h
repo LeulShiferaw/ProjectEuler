@@ -56,3 +56,8 @@ bool isPrime(int n)
 		return true;
 	}
 }
+
+bool is_integer(double n)
+{
+	return floor(n) == n;
+}
