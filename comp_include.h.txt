@@ -1,0 +1,24 @@
+#include <vector>
+
+vector<int> seive(int sz)
+{
+	vector<int> primes;
+	bool is_prime[sz + 5];
+	is_prime[1] = false;
+	for (int i = 0; i < sz + 1; ++i)
+	{
+		is_prime[i] = true;
+	}
+
+	for (int i = 2; i < sz + 1; ++i)
+	{
+		if(is_prime[i])
+			primes.push_back(i);
+		for (int j = i * i; j < sz + 1; j += i)
+		{
+			is_prime[j] = false;
+		}
+	}
+
+	return primes;
+}

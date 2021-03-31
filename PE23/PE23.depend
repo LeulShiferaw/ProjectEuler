@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1600966708 source:/home/stoplight/ProjectEuler/PE23/main.cpp
+	<cmath>
+	<vector>
+	<set>
+	<iostream>
+

@@ -52,6 +52,7 @@ int main()
     long long res = 0;
     for(int i = 2; i<10000; ++i)
     {
+        //d(a) = b && d(b) = a => d(d(a)) = a & a != b where b=d(a)
         if(ami_num[i] < 10000 && i != ami_num[i] && ami_num[ami_num[i]] == i)
         {
             res += ami_num[i];

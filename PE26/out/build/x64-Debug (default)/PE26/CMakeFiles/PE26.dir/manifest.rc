@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "C:/Users/abiyl/Desktop/ProjectEuler/PE26/out/build/x64-Debug (default)/PE26/CMakeFiles/PE26.dir/embed.manifest"

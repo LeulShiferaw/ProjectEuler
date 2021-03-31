@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1600899334 source:/home/stoplight/ProjectEuler/PE22/main.cpp
+	<fstream>
+	<iostream>
+	<vector>
+	<string>
+
