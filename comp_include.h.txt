@@ -22,3 +22,5 @@ vector<int> seive(int sz)
 
 	return primes;
 }
+
+bool isPrime()
