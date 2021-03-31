@@ -2,7 +2,9 @@
 
 #include <vector>
 
-int sz = 10000;
+using namespace std;
+
+constexpr int sz = 10000;
 bool is_prime[sz + 5];
 vector<int> primes;
 bool has_seived = false;
@@ -11,7 +13,7 @@ void seive()
 {
 	has_seived = true;
 	is_prime[1] = false;
-	for (int i = 0; i < sz + 1; ++i)
+	for (int i = 2; i < sz + 1; ++i)
 	{
 		is_prime[i] = true;
 	}
