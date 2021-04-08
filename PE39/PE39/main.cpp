@@ -1,3 +1,4 @@
+//Passes the 1 min rule
 #include <iostream>
 
 using namespace std;

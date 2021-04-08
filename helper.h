@@ -1,14 +1,33 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
-constexpr int sz = 10000;
+constexpr int sz = 100000;
 bool is_prime[sz + 5];
 vector<int> primes;
 bool has_seived = false;
 
+void seive();
+int num_digs(int n);
+bool isPrime(int n);
+bool is_integer(double n);
+bool is_pandigital(long long n);
+int convert_string_int(const string&);
+long long convert_str_ll(const string&);
+//helper functions for permutation
+vector<string> add_everywhere(const char& c, vector<string> perms);
+vector<string> add_everywhere(const char& c, string str);
+vector<string> permutation(string str);
+
+template <class T>
+void display(const vector<T>& vec);
+
+
+//Implementation
 void seive()
 {
 	has_seived = true;
@@ -18,11 +37,11 @@ void seive()
 		is_prime[i] = true;
 	}
 
-	for (int i = 2; i < sz + 1; ++i)
+	for (long long i = 2; i < sz + 1; ++i)
 	{
 		if (is_prime[i])
 			primes.push_back(i);
-		for (int j = i * i; j < sz + 1; j += i)
+		for (long long j = i * i; j < sz + 1; j += i)
 		{
 			is_prime[j] = false;
 		}
@@ -60,4 +79,92 @@ bool isPrime(int n)
 bool is_integer(double n)
 {
 	return floor(n) == n;
+}
+
+bool is_pandigital(long long n)
+{
+	string str = to_string(n);
+	sort(str.begin(), str.end());
+	for (int i = 1; i <= n; ++i)
+	{
+		if (str[i] - '0' != 1)
+			return false;
+	}
+	return true;
+}
+
+int convert_string_int(const string& str)
+{
+	int curr = 1;
+	int res = 0;
+	for (int i = str.size() - 1; i >= 0; --i)
+	{
+		res += curr * (str[i] - '0');
+		curr *= 10;
+	}
+	return res;
+}
+
+long long convert_string_ll(const string& str)
+{
+	long long res = 0;
+	long long curr = 1;
+	for (int i = str.size() - 1; i >= 0; --i)
+	{
+		res += curr * (str[i] - '0');
+		curr *= 10;
+	}
+	return res;
+}
+
+vector<string> add_everywhere(const char& c, vector<string> perms)
+{
+	vector<string> res;
+	for (int i = 0; i < perms.size(); ++i)
+	{
+		string str = "";
+		for (int j = 0; j < perms[i].size(); ++j)
+		{
+			str = perms[i].substr(0, j) + c + perms[i].substr(j, perms[i].size() - j);
+			res.push_back(str);
+		}
+		res.push_back(perms[i] + c);
+	}
+	return res;
+}
+
+vector<string> add_everywhere(const char& c, string str)
+{
+	vector<string> res;
+	string strng = "";
+	for (int i = 0; i < str.size(); ++i)
+	{
+		strng = str.substr(0, i) + c + str.substr(i, str.size() - i);
+		res.push_back(strng);
+	}
+	res.push_back(str + c);
+	return res;
+}
+
+vector<string> permutation(string str)
+{
+	if (str.size() == 1)
+	{
+		vector<string> vec;
+		vec.push_back(str);
+		return vec;
+	}
+
+	return add_everywhere(str[0], permutation(str.substr(1, str.size() - 1)));
+
+}
+
+template <class T>
+void display(const vector<T>& vec)
+{
+	for (int i = 0; i < vec.size(); ++i)
+	{
+		cout << vec[i] << endl;
+	}
+	cout << endl;
 }
