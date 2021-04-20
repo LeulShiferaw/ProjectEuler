@@ -1,3 +1,7 @@
+/*
+	Author: Leul Shiferaw
+	Helper functions for solving problems
+*/
 #pragma once
 
 #include <vector>
@@ -6,7 +10,7 @@
 
 using namespace std;
 
-constexpr int sz = 100000;
+constexpr int sz = 1000000;
 bool is_prime[sz + 5];
 vector<int> primes;
 bool has_seived = false;
@@ -14,6 +18,7 @@ bool has_seived = false;
 void seive();
 int num_digs(int n);
 bool isPrime(int n);
+bool is_long(double n);
 bool is_integer(double n);
 bool is_pandigital(long long n);
 int convert_string_int(const string&);
@@ -78,7 +83,12 @@ bool isPrime(int n)
 
 bool is_integer(double n)
 {
-	return floor(n) == n;
+	return int(n) == n;
+}
+
+bool is_long(double n)
+{
+	return (long long)n == n;
 }
 
 bool is_pandigital(long long n)
