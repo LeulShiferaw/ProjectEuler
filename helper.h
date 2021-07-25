@@ -17,6 +17,8 @@ bool has_seived = false;
 
 void seive();
 int num_digs(int n);
+int phi(long long n);
+int gcd(int a, int b);
 bool isPrime(int n);
 bool is_long(double n);
 bool is_integer(double n);
@@ -56,6 +58,40 @@ void seive()
 int num_digs(int n)
 {
 	return floor(log10(n)) + 1;
+}
+
+int gcd(int a, int b)
+{
+	if (b < a)
+		swap(a, b);
+
+	if (a == 0)
+		return b;
+
+	return gcd(a, b % a);
+}
+
+int phi(long long n)
+{
+	double res = n;
+
+	long long sqrt_n = sqrt(n);
+	for (int i = 0; i < primes.size() && primes[i] <= sqrt_n; ++i)
+	{
+		if (n % primes[i] == 0)
+		{
+			while (n % primes[i] == 0)
+				n /= (long long)primes[i];
+			res *= 1.0 - (1.0 / primes[i]);
+		}
+	}
+	
+	if (n > 1)
+	{
+		res *= 1.0 - (1.0 / n);
+	}
+	
+	return res;
 }
 
 bool isPrime(int n)
