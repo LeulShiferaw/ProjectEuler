@@ -12,8 +12,9 @@ int main()
 	{
 		if (fibn % 2 == 0)
 			sum += fibn;
-		fibn += fib1;
-		fib1 = fibn - fib1;
+		int temp = fibn;
+		fibn = fib1 + fibn;
+		fib1 = temp;
 	}
 	
 	cout << sum << endl;

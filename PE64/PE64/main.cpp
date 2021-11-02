@@ -1,39 +1,73 @@
+//Just follow the algorithm in the problem statement, but do it without calculating the value but rather storing the formula. That way you don't lose precision
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-bool find(const vector<double>& vec, double ele)
+class value
+{
+public:
+	int t_sqrt;
+	int t_val;
+	int den;
+public:
+	value(const int& ts, const int& tv, const int& d)
+	{
+		t_sqrt = ts;
+		t_val = tv;
+		den = d;
+	}
+
+	void step();
+	int extract();
+};
+
+void value::step()
+{
+	den = (t_sqrt - t_val * t_val) / (float)den;
+	t_val = -t_val;
+}
+
+int value::extract()
+{
+	int val = (sqrt(t_sqrt) + t_val) / (float)den;
+	t_val -= den * val;
+	return val;
+}
+
+void display(const vector<int>& vec)
 {
 	for (int i = 0; i < vec.size(); ++i)
-	{
-		if (abs(vec[i] - ele) < 0.0001)
-			return true;
-	}
-	return false;
+		cout << vec[i] << " ";
+	cout << endl;
 }
 
 int main()
 {
 	int res = 0;
-	for (int i = 1; i <= 10000; ++i)
+	for (int i = 2; i <= 10000; ++i)
 	{
-		int a = i;
-		int b = floor(sqrt(i));
-		int d = 1;
-		int k = (a - (b * b)) / (double)d;
+		if (floor(sqrt(i)) == sqrt(i))
+			continue;
+		value curr_val(i, 0, 1);
+		cout << curr_val.extract();
 
-		vector<pair<int, int>> vec;
+		value first_val = curr_val;
+		int period = 0;
 		while (true)
 		{
-			int q = floor((sqrt(a) + b) / (double)k);
-			int new_b = -(b - q * k);
-			int new_k = (a - (b - q * k) * (b - q * k)) / (double)k;
-			auto it = find(vec.begin(), vec.end(), make_pair(new_b, new_k))
-
+			cout << ", ";
+			curr_val.step();
+			int temp = curr_val.extract();
+			cout << temp;
+			++period;
+			if (curr_val.t_sqrt == first_val.t_sqrt && curr_val.t_val == first_val.t_val && curr_val.den == first_val.den)
+				break;
 		}
-
+		cout << endl;
+		if (period % 2 == 1)
+			++res;
 	}
 
 	cout << res << endl;

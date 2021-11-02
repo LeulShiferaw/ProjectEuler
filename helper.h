@@ -15,10 +15,12 @@ bool is_prime[sz + 5];
 vector<int> primes;
 bool has_seived = false;
 
+long long sum_divisor(const int& n);
 void seive();
 int num_digs(int n);
 int phi(long long n);
 int gcd(int a, int b);
+int lcm(int a, int b);
 bool isPrime(int n);
 bool is_long(double n);
 bool is_integer(double n);
@@ -35,6 +37,27 @@ void display(const vector<T>& vec);
 
 
 //Implementation
+long long sum_divisor(const int& n)
+{
+	if (n == 1)
+		return 0;
+	long long res = 1;
+	int start = 2;
+	if (n % 2 != 0)
+		start = 3;
+
+	for (int i = start; i <= sqrt(n); i += (1 + (start == 3)))
+	{
+		if (n % i == 0)
+		{
+			res += (n / i);
+			res += i;
+		}
+	}
+
+	return res;
+}
+
 void seive()
 {
 	has_seived = true;
@@ -69,6 +92,11 @@ int gcd(int a, int b)
 		return b;
 
 	return gcd(a, b % a);
+}
+
+int lcm(int a, int b)
+{
+	return (a * b) / gcd(a, b);
 }
 
 int phi(long long n)
