@@ -6,13 +6,15 @@
 
 #include <vector>
 #include <string>
+#include <math.h>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
-constexpr int sz = 1000000;
-bool is_prime[sz + 5];
-vector<int> primes;
+constexpr int sz = 1000000000;
+vector<int> pr;
+int lp[sz+5];
 bool has_seived = false;
 
 long long sum_divisor(const int& n);
@@ -61,24 +63,22 @@ long long sum_divisor(const int& n)
 void seive()
 {
 	has_seived = true;
-	is_prime[1] = false;
 	for (int i = 2; i < sz + 1; ++i)
 	{
-		is_prime[i] = true;
-	}
+	    if(lp[i] == 0)
+        {
+            lp[i] = i;
+            pr.push_back(i);
+        }
 
-	for (long long i = 2; i < sz + 1; ++i)
-	{
-		if (is_prime[i])
-			primes.push_back(i);
-		for (long long j = i * i; j < sz + 1; j += i)
+		for (int j = 0; j < pr.size() && pr[j] <= lp[i] && i*pr[j] <= sz; ++j)
 		{
-			is_prime[j] = false;
+		    lp[i*pr[j]] = pr[j];
 		}
 	}
 }
 
-int num_digs(int n)
+int num_digs(long long n)
 {
 	return floor(log10(n)) + 1;
 }
@@ -104,21 +104,21 @@ int phi(long long n)
 	double res = n;
 
 	long long sqrt_n = sqrt(n);
-	for (int i = 0; i < primes.size() && primes[i] <= sqrt_n; ++i)
+	for (int i = 0; i < pr.size() && pr[i] <= sqrt_n; ++i)
 	{
-		if (n % primes[i] == 0)
+		if (n % pr[i] == 0)
 		{
-			while (n % primes[i] == 0)
-				n /= (long long)primes[i];
-			res *= 1.0 - (1.0 / primes[i]);
+			while (n % pr[i] == 0)
+				n /= (long long)pr[i];
+			res *= 1.0 - (1.0 / pr[i]);
 		}
 	}
-	
+
 	if (n > 1)
 	{
 		res *= 1.0 - (1.0 / n);
 	}
-	
+
 	return res;
 }
 
@@ -129,16 +129,16 @@ bool isPrime(int n)
 
 	if (n < sz)
 	{
-		return is_prime[n];
+		return lp[n] == n;
 	}
 	else
 	{
 		int temp = ceil(sqrt(n));
-		for (int i = 0; i < primes.size(); ++i)
+		for (int i = 0; i < pr.size(); ++i)
 		{
-			if (primes[i] > temp)
+			if (pr[i] > temp)
 				break;
-			if (n % primes[i] == 0)
+			if (n % pr[i] == 0)
 				return false;
 		}
 		return true;
@@ -167,70 +167,17 @@ bool is_pandigital(long long n)
 	return true;
 }
 
-int convert_string_int(const string& str)
-{
-	int curr = 1;
-	int res = 0;
-	for (int i = str.size() - 1; i >= 0; --i)
-	{
-		res += curr * (str[i] - '0');
-		curr *= 10;
-	}
-	return res;
-}
-
-long long convert_string_ll(const string& str)
-{
-	long long res = 0;
-	long long curr = 1;
-	for (int i = str.size() - 1; i >= 0; --i)
-	{
-		res += curr * (str[i] - '0');
-		curr *= 10;
-	}
-	return res;
-}
-
-vector<string> add_everywhere(const char& c, vector<string> perms)
-{
-	vector<string> res;
-	for (int i = 0; i < perms.size(); ++i)
-	{
-		string str = "";
-		for (int j = 0; j < perms[i].size(); ++j)
-		{
-			str = perms[i].substr(0, j) + c + perms[i].substr(j, perms[i].size() - j);
-			res.push_back(str);
-		}
-		res.push_back(perms[i] + c);
-	}
-	return res;
-}
-
-vector<string> add_everywhere(const char& c, string str)
-{
-	vector<string> res;
-	string strng = "";
-	for (int i = 0; i < str.size(); ++i)
-	{
-		strng = str.substr(0, i) + c + str.substr(i, str.size() - i);
-		res.push_back(strng);
-	}
-	res.push_back(str + c);
-	return res;
-}
-
 vector<string> permutation(string str)
 {
-	if (str.size() == 1)
+	sort(str.begin(), str.end());
+
+	vector<string> res;
+	do
 	{
-		vector<string> vec;
-		vec.push_back(str);
-		return vec;
-	}
+		res.push_back(str);
+	} while (next_permutation(str.begin(), str.end()));
 
-	return add_everywhere(str[0], permutation(str.substr(1, str.size() - 1)));
-
+	return res;
 }
 
 template <class T>
