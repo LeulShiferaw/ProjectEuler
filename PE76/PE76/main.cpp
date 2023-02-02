@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-	int	n = 100;
+	int	n = 6;
 
 	vector<vector<int>> soln;
 	for (int i = 0; i <= n; ++i)
@@ -36,6 +36,6 @@ int main()
 			}
 		}
 	}
-	cout << soln[100][100] - 1 << endl;
+	cout << soln[n][n] - 1 << endl;
 	return 0;
 }

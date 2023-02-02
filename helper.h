@@ -4,15 +4,16 @@
 */
 #pragma once
 
+#include <set>
+#include <cmath>
 #include <vector>
 #include <string>
-#include <math.h>
 #include <algorithm>
 #include <iostream>
 
 using namespace std;
 
-constexpr int sz = 1000000000;
+constexpr int sz = 50000000;
 vector<int> pr;
 int lp[sz+5];
 bool has_seived = false;
@@ -23,7 +24,7 @@ int num_digs(int n);
 int phi(long long n);
 int gcd(int a, int b);
 int lcm(int a, int b);
-bool isPrime(int n);
+bool isPrime(long long n);
 bool is_long(double n);
 bool is_integer(double n);
 bool is_pandigital(long long n);
@@ -122,7 +123,7 @@ int phi(long long n)
 	return res;
 }
 
-bool isPrime(int n)
+bool isPrime(long long n)
 {
 	if (!has_seived)
 		seive();
@@ -133,7 +134,7 @@ bool isPrime(int n)
 	}
 	else
 	{
-		int temp = ceil(sqrt(n));
+		long long temp = ceil(sqrt(n));
 		for (int i = 0; i < pr.size(); ++i)
 		{
 			if (pr[i] > temp)
@@ -142,6 +143,33 @@ bool isPrime(int n)
 				return false;
 		}
 		return true;
+	}
+}
+
+void primeFactors(int n, set<int> &primeFac)
+{
+	if(!has_seived)
+		seive();
+
+	if(n<sz)
+	{
+		if(lp[n] == n)
+		{
+			primeFac.insert(n);
+			return;
+		}
+	}
+	long long temp = ceil(sqrt(n));
+	for(int i = 0; i<pr.size(); ++i)
+	{
+		if(pr[i] > temp)
+			break;
+		if(n%pr[i] == 0)
+		{
+			primeFactors(n/pr[i], primeFac);
+			primeFac.insert(pr[i]);
+			return;
+		}		
 	}
 }
 
