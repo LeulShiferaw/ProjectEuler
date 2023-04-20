@@ -1,96 +1,35 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
-using namespace std;
+long long gcd(long long a, long long b) {
+    while (b) {
+        long long t = a % b;
+        a = b;
+        b = t;
+    }
+    return a;
+}
 
-int searchRangeStart(vector<int> &nums, int s, int e, int t)
-    {
-        if(s == e-1)
-        {
-            if(nums[s] == t)
-            {
-                if(s != 0)
-                {
-                    if(nums[s-1] < t)
-                        return s;
-                    else return -1;
+long long count(long long N) {
+    long long result = 0;
+    for (long long u = 1; u * u <= N; ++u) {
+        for (long long v = 1; v < u; ++v) {
+            if ((u + v) % 2 == 1 && gcd(u, v) == 1) {
+                long long a = u * u + v * v;
+                long long b = u * u - v * v;
+                long long c = 2 * u * v;
+                long long p = a + b + c;
+                if (p <= N) {
+                    result += (N - p) / (2 * a) + 1;
                 }
-                else return s;
             }
-            return -1;
         }
-        
-        int m = (s+e)/2;
-        if(m == 0)
-        {
-            if(nums[m] == t)
-                return m;
-        }
-        
-        if(nums[m] == t)
-        {
-            if(nums[m-1] < t)
-                return t;
-            else return searchRangeStart(nums, s, m, t);
-        }
-        else if(nums[m] < t)
-            return searchRangeStart(nums, m, e, t);
-        return searchRangeStart(nums, s, m, t);
     }
-    
-    int searchRangeEnd(vector<int> &nums, int s, int e, int t)
-    {
-        
-        if(s == e-1)
-        {
-            if(nums[s] == t)
-            {
-                if(s != nums.size()-1)
-                {
-                    if(nums[s+1] > t)
-                        return s;
-                    else return -1;
-                }
-                else return s;
-            }
-            return -1;
-        }
-        
-        int m = (s+e)/2;
-        if(m == nums.size()-1)
-        {
-            if(nums[m] == t)
-                return m;
-        }
-        
-        if(nums[m] == t)
-        {
-            if(nums[m+1] > t)
-                return t;
-            else return searchRangeEnd(nums, m, e, t);
-        }
-        else if(nums[m] > t)
-            return searchRangeEnd(nums, s, m, t);
-        return searchRangeEnd(nums, m, e, t);
-    }
-    
-    vector<int> searchRange(vector<int>& nums, int target) {
-        vector<int> res;
-        int i = searchRangeStart(nums, 0, nums.size(), target);
-        res.push_back(i);
-        if(i == -1)
-        {
-            res.push_back(-1);
-            return res;
-        }
-        int j = searchRangeEnd(nums, 0, nums.size(), target);
-        res.push_back(j);
-        return res;
-    }
+    return result;
+}
 
-int main()
-{
-    vector<int> nums = {5, 7, 7, 8, 8, 10};
-    auto res = searchRange(nums, 8);
-    cout << res[0] << " " << res[1] << endl;
+int main() {
+    long long N = 100000000;
+    long long result = count(N);
+    std::cout << "The count of Pythagorean polygons is: " << result << std::endl;
     return 0;
 }

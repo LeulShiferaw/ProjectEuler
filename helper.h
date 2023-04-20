@@ -13,7 +13,7 @@
 
 using namespace std;
 
-constexpr int sz = 50000000;
+constexpr int sz = 10000000;
 vector<int> pr;
 int lp[sz+5];
 bool has_seived = false;
@@ -143,6 +143,33 @@ bool isPrime(long long n)
 				return false;
 		}
 		return true;
+	}
+}
+
+void primeFactors(int n, vector<int> &primeFac)
+{
+	if(!has_seived)
+		seive();
+
+	if(n<sz)
+	{
+		if(lp[n] == n)
+		{
+			primeFac.push_back(n);
+			return;
+		}
+	}
+	long long temp = ceil(sqrt(n));
+	for(int i = 0; i<pr.size(); ++i)
+	{
+		if(pr[i] > temp)
+			break;
+		if(n%pr[i] == 0)
+		{
+			primeFactors(n/pr[i], primeFac);
+			primeFac.push_back(pr[i]);
+			return;
+		}		
 	}
 }
 
