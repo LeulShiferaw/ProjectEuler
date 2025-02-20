@@ -2,5 +2,7 @@
     "files.associations": {
         "vector": "cpp",
         "xstring": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled",
+    "cmake.sourceDirectory": "/home/stoplight/Documents/ProjectEuler/PE26"
 }
